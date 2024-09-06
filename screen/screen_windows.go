@@ -58,6 +58,10 @@ func SetWallpaper(jpegName, currentPath string) error {
 	// Read picture format and pixel size
 	config, format, err := image.DecodeConfig(fconfig)
 	fconfig.Close()
+	if err != nil {
+		return err
+	}
+
 	pictureShape := float64(config.Width) / float64(config.Height)
 	monitorShape := float64(monitorWidth) / float64(monitorHeight)
 	cropWigth := config.Width
@@ -70,13 +74,11 @@ func SetWallpaper(jpegName, currentPath string) error {
 		cropX = (config.Width - cropWigth) / 2
 		cropY = 0
 	}
-	if err == nil {
-		fmt.Printf("Image  %s; %d %d; %d, %d; %d, %d; %d %d\n", format, config.Width, config.Height, monitorWidth, monitorHeight, cropWigth, cropHeight, cropX, cropY)
-	} else {
-		return err
-	}
-	f, err := os.Open(jpegName)
+	fmt.Printf("Image  type: %s; size: %d*%d\n", format, config.Width, config.Height)
+	fmt.Printf("Monitor size: %d*%d\n", monitorWidth, monitorHeight)
+	fmt.Printf("Crop: %d, %d; %d %d\n", cropWigth, cropHeight, cropX, cropY)
 
+	f, err := os.Open(jpegName)
 	if err != nil {
 		return err
 	}
