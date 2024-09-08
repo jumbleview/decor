@@ -10,7 +10,7 @@ import (
 	"golang.org/x/image/bmp"
 )
 
-// EncodeCropDecode reads jpeg file, crops omage to match monitor ratio, encode image as bmp file
+// EncodeCropDecode reads jpeg file, crops image to match monitor ratio, encode image as bmp file
 func EncodeCropDecode(jpegName, bmpName string, monitorWidth, monitorHeight int) error {
 
 	fconfig, err := os.Open(jpegName)
@@ -37,7 +37,8 @@ func EncodeCropDecode(jpegName, bmpName string, monitorWidth, monitorHeight int)
 		cropX = (config.Width - cropWigth) / 2
 		cropY = 0
 	}
-	fmt.Printf("Image  type: %s; size: %d*%d\n", format, config.Width, config.Height)
+	fmt.Printf("Image  type: %s\n", format)
+	fmt.Printf("Image  size: %d*%d\n", config.Width, config.Height)
 	fmt.Printf("Monitor size: %d*%d\n", monitorWidth, monitorHeight)
 	fmt.Printf("Crop: %d, %d; %d %d\n", cropWigth, cropHeight, cropX, cropY)
 
